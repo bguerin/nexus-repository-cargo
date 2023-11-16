@@ -5,6 +5,7 @@ ARG NEXUS_VERSION=latest
 FROM maven:3-jdk-8-alpine AS build
 
 COPY . /nexus-repository-cargo/
+RUN apk add git
 # requires BUILDKIT, caches .m2 between builds.  Use --no-cache to build from scratch
 RUN --mount=type=cache,target=/root/.m2 cd /nexus-repository-cargo/; \
     mvn clean package -PbuildKar;
